@@ -6,7 +6,7 @@
   let trucoValor = 1;
   let playerHand = [];
   let opponentHand = [];
-  let cartas = [1, 2, 3, 4, 5, 6, 7];
+  let cartas = [Copas, AinnZapSeco, Zap, Espadilha, ourinhos, pikafumo, Josi];
   let apostaRodada = 0;
 
   function apostarRodada() {
