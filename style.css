@@ -1,0 +1,59 @@
+body {
+  background-color: #121212;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 30px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #e50914;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.player, .opponent {
+  width: 45%;
+  background: #2a2a2a;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.bet-section {
+  margin-bottom: 20px;
+}
+
+input[type="number"] {
+  padding: 10px;
+  width: 150px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ff1a25;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+}
