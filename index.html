@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Truco Online</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta do Dia</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Truco Online</h1>
-    <div class="placar">
-      Você: <span id="pontosJogador">0</span> | Computador: <span id="pontosCPU">0</span>
+  <div class="container">
+    <h1>Carta do Dia 🃏</h1>
+    <div id="carta-container" class="carta-container">
+      <img id="imagem-carta" src="" alt="Carta" />
+      <p id="nome-carta">Clique no botão para sortear</p>
+      <p id="descricao-carta" class="descricao"></p>
     </div>
-  </header>
-
-  <main>
-    <div class="mesa" id="mesa"></div>
-    <div class="mao" id="maoJogador"></div>
-    <button id="novaRodada">Nova Rodada</button>
-  </main>
-
-  <footer>
-    <p>Feito para jogar Truco Brasileiro!</p>
-  </footer>
-
+    <button onclick="sortearCarta()">Sortear Carta</button>
+  </div>
+  <footer>Feito com ♥ por um truqueiro digital</footer>
   <script src="script.js"></script>
 </body>
 </html>
