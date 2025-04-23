@@ -25,3 +25,170 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+/* Estrutura do projeto Truco funcional */
+
+// index.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Truco Online</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Truco Online</h1>
+    <div class="placar">
+      Você: <span id="pontosJogador">0</span> | Computador: <span id="pontosCPU">0</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="mesa" id="mesa">
+      <!-- Cartas em jogo -->
+    </div>
+    <div class="mao" id="maoJogador">
+      <!-- Cartas do jogador -->
+    </div>
+    <button id="novaRodada">Nova Rodada</button>
+  </main>
+
+  <footer>
+    <p>Feito para jogar Truco Brasileiro!</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
+
+/* styles.css */
+body {
+  background-color: green;
+  margin: 0;
+  font-family: sans-serif;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header, footer {
+  text-align: center;
+  padding: 1em;
+}
+
+.placar {
+  font-size: 1.2em;
+  margin-top: 0.5em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.mesa, .mao {
+  display: flex;
+  gap: 10px;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+
+.carta {
+  width: 80px;
+  height: 120px;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: gold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+// script.js
+const cartas = [
+  '4D', '5C', '6S', '7H', 'QC', 'JD', 'KS', 'AH', '2S', '3C'
+];
+
+const imagens = carta => `https://deckofcardsapi.com/static/img/${carta}.png`;
+
+let pontosJogador = 0;
+let pontosCPU = 0;
+
+const mesa = document.getElementById('mesa');
+const maoJogador = document.getElementById('maoJogador');
+const btnNovaRodada = document.getElementById('novaRodada');
+const spanJogador = document.getElementById('pontosJogador');
+const spanCPU = document.getElementById('pontosCPU');
+
+btnNovaRodada.addEventListener('click', iniciarRodada);
+
+function iniciarRodada() {
+  mesa.innerHTML = '';
+  maoJogador.innerHTML = '';
+
+  const baralho = [...cartas].sort(() => 0.5 - Math.random());
+  const mao = baralho.slice(0, 6);
+  const maoJog = mao.slice(0, 3);
+  const maoComp = mao.slice(3, 6);
+
+  maoJog.forEach((carta, index) => {
+    const div = document.createElement('div');
+    div.className = 'carta';
+    div.style.backgroundImage = `url(${imagens(carta)})`;
+    div.onclick = () => jogarCarta(carta, maoComp[index]);
+    maoJogador.appendChild(div);
+  });
+}
+
+function jogarCarta(cartaJog, cartaComp) {
+  maoJogador.innerHTML = '';
+  mesa.innerHTML = '';
+
+  const cartaJogEl = document.createElement('div');
+  cartaJogEl.className = 'carta';
+  cartaJogEl.style.backgroundImage = `url(${imagens(cartaJog)})`;
+
+  const cartaCompEl = document.createElement('div');
+  cartaCompEl.className = 'carta';
+  cartaCompEl.style.backgroundImage = `url(${imagens(cartaComp)})`;
+
+  mesa.appendChild(cartaJogEl);
+  mesa.appendChild(cartaCompEl);
+
+  if (cartas.indexOf(cartaJog) > cartas.indexOf(cartaComp)) {
+    pontosJogador++;
+  } else {
+    pontosCPU++;
+  }
+
+  spanJogador.textContent = pontosJogador;
+  spanCPU.textContent = pontosCPU;
+
+  if (pontosJogador >= 12) {
+    alert("Você venceu o jogo!");
+    resetarJogo();
+  } else if (pontosCPU >= 12) {
+    alert("O computador venceu o jogo!");
+    resetarJogo();
+  }
+}
+
+function resetarJogo() {
+  pontosJogador = 0;
+  pontosCPU = 0;
+  spanJogador.textContent = '0';
+  spanCPU.textContent = '0';
+  mesa.innerHTML = '';
+  maoJogador.innerHTML = '';
+}
