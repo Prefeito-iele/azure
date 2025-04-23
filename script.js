@@ -1,76 +1,60 @@
 const cartas = [
-  '4D', '5C', '6S', '7H', 'QC', 'JD', 'KS', 'AH', '2S', '3C'
+  {
+    nome: '4 de Ouros',
+    codigo: '4D',
+    curiosidade: 'No Truco, é a carta mais fraca, mas pode surpreender.'
+  },
+  {
+    nome: '5 de Paus',
+    codigo: '5C',
+    curiosidade: 'Quase ninguém liga pra ela... mas faz parte do jogo.'
+  },
+  {
+    nome: '6 de Espadas',
+    codigo: '6S',
+    curiosidade: 'Boa carta de meio de jogo. Dá para ganhar rodadas.'
+  },
+  {
+    nome: '7 de Copas',
+    codigo: '7H',
+    curiosidade: 'É linda, mas no Truco vale pouco!'
+  },
+  {
+    nome: 'Dama de Paus',
+    codigo: 'QC',
+    curiosidade: 'Uma das damas do baralho... charme e presença.'
+  },
+  {
+    nome: 'Valete de Ouros',
+    codigo: 'JD',
+    curiosidade: 'Esse valete pode te dar a vitória se bem usado!'
+  },
+  {
+    nome: 'Rei de Espadas',
+    codigo: 'KS',
+    curiosidade: 'O rei tem moral, mas precisa de apoio.'
+  },
+  {
+    nome: 'Ás de Copas',
+    codigo: 'AH',
+    curiosidade: 'O Ás sempre impõe respeito. Confie nele.'
+  },
+  {
+    nome: '2 de Espadas',
+    codigo: '2S',
+    curiosidade: 'No Truco, essa carta é a segunda mais forte!'
+  },
+  {
+    nome: '3 de Paus',
+    codigo: '3C',
+    curiosidade: 'A carta mais poderosa do Truco tradicional!'
+  }
 ];
 
-const imagens = carta => `https://deckofcardsapi.com/static/img/${carta}.png`;
+function sortearCarta() {
+  const sorteada = cartas[Math.floor(Math.random() * cartas.length)];
 
-let pontosJogador = 0;
-let pontosCPU = 0;
-
-const mesa = document.getElementById('mesa');
-const maoJogador = document.getElementById('maoJogador');
-const btnNovaRodada = document.getElementById('novaRodada');
-const spanJogador = document.getElementById('pontosJogador');
-const spanCPU = document.getElementById('pontosCPU');
-
-btnNovaRodada.addEventListener('click', iniciarRodada);
-
-function iniciarRodada() {
-  mesa.innerHTML = '';
-  maoJogador.innerHTML = '';
-
-  const baralho = [...cartas].sort(() => 0.5 - Math.random());
-  const mao = baralho.slice(0, 6);
-  const maoJog = mao.slice(0, 3);
-  const maoComp = mao.slice(3, 6);
-
-  maoJog.forEach((carta, index) => {
-    const div = document.createElement('div');
-    div.className = 'carta';
-    div.style.backgroundImage = `url(${imagens(carta)})`;
-    div.onclick = () => jogarCarta(carta, maoComp[index]);
-    maoJogador.appendChild(div);
-  });
-}
-
-function jogarCarta(cartaJog, cartaComp) {
-  maoJogador.innerHTML = '';
-  mesa.innerHTML = '';
-
-  const cartaJogEl = document.createElement('div');
-  cartaJogEl.className = 'carta';
-  cartaJogEl.style.backgroundImage = `url(${imagens(cartaJog)})`;
-
-  const cartaCompEl = document.createElement('div');
-  cartaCompEl.className = 'carta';
-  cartaCompEl.style.backgroundImage = `url(${imagens(cartaComp)})`;
-
-  mesa.appendChild(cartaJogEl);
-  mesa.appendChild(cartaCompEl);
-
-  if (cartas.indexOf(cartaJog) > cartas.indexOf(cartaComp)) {
-    pontosJogador++;
-  } else {
-    pontosCPU++;
-  }
-
-  spanJogador.textContent = pontosJogador;
-  spanCPU.textContent = pontosCPU;
-
-  if (pontosJogador >= 12) {
-    alert("Você venceu o jogo!");
-    resetarJogo();
-  } else if (pontosCPU >= 12) {
-    alert("O computador venceu o jogo!");
-    resetarJogo();
-  }
-}
-
-function resetarJogo() {
-  pontosJogador = 0;
-  pontosCPU = 0;
-  spanJogador.textContent = '0';
-  spanCPU.textContent = '0';
-  mesa.innerHTML = '';
-  maoJogador.innerHTML = '';
+  document.getElementById("imagem-carta").src = `https://deckofcardsapi.com/static/img/${sorteada.codigo}.png`;
+  document.getElementById("nome-carta").textContent = sorteada.nome;
+  document.getElementById("descricao-carta").textContent = sorteada.curiosidade;
 }
